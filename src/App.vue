@@ -2,15 +2,14 @@
  * @Author: yhl
  * @Date: 2022-09-30 14:11:49
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-09-30 17:29:49
+ * @LastEditTime: 2022-09-30 18:01:56
  * @FilePath: /low-code/src/App.vue
 -->
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import useStore from './store'
-const { user } = useStore()
+const { user } = $useStore
 user.getList()
-console.log(user.userList[0].name)
+console.log(user.userList)
 </script>
 
 <template>

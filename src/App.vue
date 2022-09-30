@@ -1,7 +1,16 @@
+<!--
+ * @Author: yhl
+ * @Date: 2022-09-30 14:11:49
+ * @LastEditors: Do not edit
+ * @LastEditTime: 2022-09-30 17:29:49
+ * @FilePath: /low-code/src/App.vue
+-->
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './components/HelloWorld.vue'
+import useStore from './store'
+const { user } = useStore()
+user.getList()
+console.log(user.userList[0].name)
 </script>
 
 <template>

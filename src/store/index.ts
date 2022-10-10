@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 15:15:48
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-09-30 17:29:40
+ * @LastEditTime: 2022-10-02 16:07:39
  * @FilePath: /low-code/src/store/index.ts
  */
 const modules = import.meta.glob('./modules/*.ts', { eager: true })

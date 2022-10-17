@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-10 16:55:37
+ * @LastEditTime: 2022-10-17 10:38:26
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -29,9 +29,11 @@
         </ul>
       </aside>
       <section class="preview">
-        <a-form :model="form" class="preview-pc">
-          <template v-for="item in defineJson" :key="item.itemId">
-            <component :is="list[item.type]" />
+        <a-form :model="form" class="preview-pc" layout="vertical">
+          <template v-for="(item, i) in defineJson" :key="item.itemId">
+            <div class="view-item" :class="{'view-item-active': item.itemId === currentCom.itemId}" @click="changeActive(i)">
+              <component :is="list[item.type]" class="view-item-com" :comData="item" />
+            </div>
           </template>
         </a-form>
       </section>
@@ -44,7 +46,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive, defineAsyncComponent } from 'vue'
+import { ref, Ref, reactive, defineAsyncComponent, provide } from 'vue'
 import componentData from './config'
 import { nanoid } from 'nanoid'
 import { comDefine, menuItem, comCollections } from './types'
@@ -67,17 +69,23 @@ import { comDefine, menuItem, comCollections } from './types'
   // 定义中间区域form
   const form = reactive({})
   // 定义全局的表单定义
-  let defineJson = reactive([] as any[])
+  let defineJson = reactive([] as comDefine[])
   // 定义当前选中的一个组件
-  let currentCom:Ref<comDefine> = ref({} as comDefine)
+  let currentCom = ref({} as comDefine)
+  provide('currentData', currentCom)
   // 像表单定义中添加组件项
-  const addCom = (item:comDefine) => {
-    let com = componentData.find(val => val.type === item.type)
+  const addCom = (item:comDefine):void => {
+    let com = Object.assign({}, componentData.find(val => val.type === item.type))
     if (com) {
       com.itemId = nanoid(8)
-      currentCom.value = Object.assign({}, com)
-      defineJson.push(currentCom.value)
+      defineJson.push(com)
+      currentCom.value = defineJson[defineJson.length - 1]
     }
+  }
+
+  // 点击中部组件，切换当前选中组件状态
+  const changeActive = (i:number):void => {
+    currentCom.value = defineJson[i]
   }
 
   // 动态获取异步组件集合
@@ -172,13 +180,28 @@ import { comDefine, menuItem, comCollections } from './types'
           box-sizing: border-box;
           overflow: auto;
         }
+        .view-item {
+          width: 100%;
+          height: fit-content;
+          border: 2px dotted transparent;
+          &:hover {
+            border: 2px dashed #1890ff;
+            background-color: rgba(24, 144, 255, .1);
+          }
+        }
+        .view-item-active {
+          border: 2px solid #1890ff!important;
+        }
+        .view-item-com {
+          pointer-events: none;
+        }
       }
 
       .right-area {
-        width: 300px;
+        width: 320px;
         height: 100%;
-        padding: 16px;
         box-sizing: border-box;
+        overflow: auto;
       }
     }
   }

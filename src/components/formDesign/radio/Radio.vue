@@ -2,21 +2,22 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:01
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-10 14:42:59
+ * @LastEditTime: 2022-10-17 10:34:50
  * @FilePath: /low-code/src/components/formDesign/radio/Radio.vue
 -->
 <template>
-  <a-form-item field="name" label="标题">
-    <a-radio-group v-model="value2" :options="options" />
+  <a-form-item field="name" :label="comData.title">
+    <a-radio-group v-model="comData.defaultValue" :direction="comData.direction">
+      <a-radio v-for="item in comData.diyList" :value="item.value">{{item.label}}</a-radio>
+    </a-radio-group>
   </a-form-item>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { comDefine } from '../types'
+interface Props {
+  comData: comDefine
+}
 
-const value2 = ref('1')
-const options = [
-  { label: 'option 1', value: '1' },
-  { label: 'option 2', value: '2' },
-  { label: 'option 3', value: '3', disabled: true },
-]
+const { comData } = defineProps<Props>()
+
 </script>

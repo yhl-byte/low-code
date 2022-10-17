@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:09:02
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-10 15:44:38
+ * @LastEditTime: 2022-10-16 14:23:54
  * @FilePath: /low-code/src/components/formDesign/textarea/Textarea.ts
  */
 class Textarea {
@@ -16,12 +16,12 @@ class Textarea {
   desc: string; // 组件描述，显示在组件下方
   state: string; // 组件状态（N - 常规； R - 只读； H - 隐藏； F - 禁用）
   placeholder: string; // 输入提示信息
-  clearable: boolean; // 是否可清空
-  filterable: boolean; // 是否可搜索
   defaultValue: string|number|null; // 默认值
   isRequired: boolean; // 是否必填
   showlimit: boolean; // 是否显示字数统计
-  maxLength: number // 最大输入长度
+  maxLength: number; // 最大输入长度
+  autoSize: boolean | undefined; //文本域高度自适应
+  maxRows: number; // 文本域最大高度
   constructor () {
     this.type = 'Textarea'
     this.icon = 'icon-robot-add'
@@ -32,12 +32,12 @@ class Textarea {
     this.desc = ''
     this.state = 'N'
     this.placeholder = '请输入'
-    this.clearable = false
-    this.filterable = false
     this.defaultValue = null
     this.isRequired = false
     this.showlimit = false
     this.maxLength = 100
+    this.autoSize = false
+    this.maxRows = 3
   }
 }
 

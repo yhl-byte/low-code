@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-17 10:38:26
+ * @LastEditTime: 2022-10-17 18:40:14
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -50,6 +50,7 @@ import { ref, Ref, reactive, defineAsyncComponent, provide } from 'vue'
 import componentData from './config'
 import { nanoid } from 'nanoid'
 import { comDefine, menuItem, comCollections } from './types'
+import useDeepCopy from '../../hooks/deep-clone'
 
   // 菜单列表
   const menuList:Array<menuItem> = [
@@ -75,7 +76,7 @@ import { comDefine, menuItem, comCollections } from './types'
   provide('currentData', currentCom)
   // 像表单定义中添加组件项
   const addCom = (item:comDefine):void => {
-    let com = Object.assign({}, componentData.find(val => val.type === item.type))
+    let com = useDeepCopy(componentData.find(val => val.type === item.type))
     if (com) {
       com.itemId = nanoid(8)
       defineJson.push(com)

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:16
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-17 10:11:36
+ * @LastEditTime: 2022-10-17 19:06:27
  * @FilePath: /low-code/src/components/formDesign/radio/RadioSetting.vue
 -->
 <template>
@@ -25,9 +25,9 @@
         <a-radio value="H">隐藏</a-radio>
       </a-radio-group>
     </a-form-item>
-    <a-form-item field="name" label="默认值">
+    <!-- <a-form-item field="name" label="默认值">
       <a-input v-model="form.defaultValue" placeholder="请输入" allow-clear />
-    </a-form-item>
+    </a-form-item> -->
     <a-form-item field="post" label="排列方式">
       <a-radio-group v-model="form.direction" class="stateStyle" type="button" size="small">
         <a-radio value="horizontal">水平排列</a-radio>
@@ -36,21 +36,40 @@
     </a-form-item>
     <div class="gapStyle">自定义选项</div>
     <section style="padding: 0 16px 12px;">
-      <a-radio-group style="width:100%;">
+      <a-radio-group v-model="form.defaultValue" style="width:100%;">
         <a-list size="small" style="margin-bottom: 12px;">
-          <a-list-item v-for="item in form.diyList">
+          <a-list-item v-for="(item, i) in form.diyList">
             <div>
               <a-radio :value="item.value" />
               <span>{{item.label}}</span>
             </div>
             <template #actions>
-              <icon-edit />
-              <icon-delete />
+              <a-popover position="left" trigger="click">
+                <icon-edit @click="editData(item, i)" />
+                <template #content>
+                  <ul class="editStyle">
+                    <li>
+                      <div class="title">选项名</div>
+                      <a-input v-model="item.label" placeholder="请输入" allow-clear />
+                    </li>
+                    <li>
+                      <div class="title">选项值</div>
+                      <a-input v-model="item.value" placeholder="请输入" allow-clear />
+                    </li>
+                    <li>
+                      <a-switch />
+                    </li>
+                  </ul>
+                </template>
+              </a-popover>
+              <a-popconfirm content="Are you sure you want to delete?" @ok="delData(i)">
+                <icon-delete />
+              </a-popconfirm>
             </template>
           </a-list-item>
         </a-list>
       </a-radio-group>
-      <a-button type="primary">添加一项</a-button>
+      <a-button type="primary" @click="addData()">添加一项</a-button>
     </section>
     <div class="gapStyle">校验</div>
     <a-form-item field="isRead" label="必填" class="rightCom">
@@ -63,10 +82,34 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, inject } from 'vue'
-import { comDefine } from '../types'
+import { reactive, inject, ref, Ref } from 'vue'
+import { comDefine, option } from '../types'
+import { nanoid } from 'nanoid'
 
-const form = inject<comDefine>('currentData') || reactive({} as comDefine)
+const form = inject<Ref>('currentData') || ref({} as comDefine)
+console.log(form.value)
+// 删除自定义选项
+const delData = (i:number):void => {
+  if (form.value.diyList) {
+    form.value.diyList.splice(i, 1)
+  }
+}
+// 添加自定义选项
+const addData = ():void => {
+  if (form.value.diyList) {
+    form.value.diyList.push({
+      value: nanoid(8),
+      label: '未命名' + form.value.diyList.length,
+      isDefault: false
+    })
+  }
+}
+// 编辑自定义选项
+const editData = (item:option, i:number):void => {
+  if (form.value.diyList) {
+    
+  }
+}
 
 </script>
 
@@ -89,6 +132,18 @@ const form = inject<comDefine>('currentData') || reactive({} as comDefine)
   justify-content: space-between;
   /deep/.arco-radio-button-content{
     padding: 0 8px!important;
+  }
+}
+.editStyle {
+  width: 300px;
+  li {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+
+    .title {
+      width: 80px;
+    }
   }
 }
 .rightCom {

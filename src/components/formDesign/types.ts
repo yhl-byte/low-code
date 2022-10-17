@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-17 10:10:09
+ * @LastEditTime: 2022-10-17 18:16:56
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{
@@ -35,8 +35,8 @@ export interface menuItem {
 }
 
 export interface option {
-  value: string | number,
-  label: string | number,
+  value: string,
+  label: string,
   isDefault: boolean
 }
 

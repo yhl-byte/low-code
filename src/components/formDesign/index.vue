@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 11:08:48
+ * @LastEditTime: 2022-10-18 13:52:13
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -22,7 +22,7 @@
           </li>
         </ul>
         <ul class="nav-content">
-          <vuedraggable v-model="componentData" :group="{name: 'comList',pull:'clone',put:false}" item-key="item.type" class="nav-content-drag">
+          <vuedraggable v-model="componentData" :group="{name: 'comList',pull:'clone',put:false}" item-key="item.type" class="nav-content-drag" :move="onMove">
             <template #item="{element}">
               <li @click="addCom(element)">
                 <component :is="element.icon" size="16" />
@@ -107,6 +107,12 @@ import vuedraggable from 'vuedraggable'
   const update = (e:any):void => {
     defineJson.splice(e.newIndex, 0, ...defineJson.splice(e.oldIndex, 1))
     currentCom.value = defineJson[e.newIndex]
+  }
+
+  // 设置不允许停靠
+  const onMove = (e:any) => {
+    if (!e.relatedContext.element.itemId) return false
+    return true
   }
 
   // 动态获取异步组件集合

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 15:08:07
+ * @LastEditTime: 2022-10-18 16:08:10
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -37,11 +37,11 @@
           <vuedraggable v-model="defineJson" :group="{name: 'comList', sort: true}" item-key="item.itemId" class="mid-content-drag" @update="update" @add="leftToMid" ghostClass="ghost">
           <template #item="{element,index}">
             <div class="view-item" :class="{'view-item-active': element.itemId === currentCom.itemId}" @click="changeActive(index)">
-              <div class="active-action">
+              <div v-if="element.itemId === currentCom.itemId" class="active-action">
                 <a-tag color="#165dff">{{ element.label }}</a-tag>
                 <div class="action-btn">
                   <icon-copy size="16" style="cursor: pointer;" @click.stop="copyCom(index)" />
-                  <a-popconfirm content="Are you sure you want to delete?" @ok="delCom(index)">
+                  <a-popconfirm popup-container="body" content="Are you sure you want to delete?" @ok="delCom(index)">
                     <icon-delete size="16" style="cursor: pointer;" />
                   </a-popconfirm>
                 </div>
@@ -53,7 +53,7 @@
         </a-form>
       </section>
       <aside class="right-area">
-        <template v-if="currentCom">
+        <template v-if="currentCom.type">
           <component :is="list[currentCom.type + 'Setting']"  />
         </template>
       </aside>
@@ -110,16 +110,15 @@ import vuedraggable from 'vuedraggable'
   const delCom = (i:number):void => {
     defineJson.splice(i, 1)
     if (defineJson.length) {
-      currentCom.value = defineJson[i - 1]
+      currentCom.value = defineJson[i - 1 < 0 ? 0 : i -1]
     } else {
-      currentCom.value = {} as comDefine
+      currentCom.value = {type: '', itemId: ''} as comDefine
     }
   }
 
   // 点击中部组件，切换当前选中组件状态
   const changeActive = (i:number):void => {
     currentCom.value = defineJson[i]
-    console.log(8888, currentCom.value )
   }
 
   // 组件从左侧拖入中间

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 16:08:10
+ * @LastEditTime: 2022-10-18 16:11:54
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -188,7 +188,7 @@ import vuedraggable from 'vuedraggable'
               color: #ddd;
             }
             .active {
-              color: #1890ff;
+              color: #165dff;
             }
           }
         }
@@ -217,8 +217,8 @@ import vuedraggable from 'vuedraggable'
             cursor: pointer;
 
             &:hover {
-              border: 1px solid #1890ff;
-              color: #1890ff;
+              border: 1px solid #165dff;
+              color: #165dff;
             }
           }
         }
@@ -241,7 +241,7 @@ import vuedraggable from 'vuedraggable'
           align-items: center;
           justify-content: center;
           background: rgba(24, 144, 255, .3);
-          border: 1px solid #1890ff;
+          border: 1px solid #165dff;
           opacity: .3;
         }
 
@@ -258,7 +258,7 @@ import vuedraggable from 'vuedraggable'
           border: 2px dotted transparent;
           margin-top: 24px;
           &:hover {
-            border: 2px dashed #1890ff;
+            border: 2px dashed #165dff;
             background-color: rgba(24, 144, 255, .1);
           }
           .active-action {

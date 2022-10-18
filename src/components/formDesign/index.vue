@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 13:52:13
+ * @LastEditTime: 2022-10-18 15:08:07
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -22,7 +22,7 @@
           </li>
         </ul>
         <ul class="nav-content">
-          <vuedraggable v-model="componentData" :group="{name: 'comList',pull:'clone',put:false}" item-key="item.type" class="nav-content-drag" :move="onMove">
+          <vuedraggable v-model="componentData" :group="{name: 'comList',pull:'clone',put:false}" item-key="item.itemId" class="nav-content-drag" :move="onMove">
             <template #item="{element}">
               <li @click="addCom(element)">
                 <component :is="element.icon" size="16" />
@@ -37,6 +37,15 @@
           <vuedraggable v-model="defineJson" :group="{name: 'comList', sort: true}" item-key="item.itemId" class="mid-content-drag" @update="update" @add="leftToMid" ghostClass="ghost">
           <template #item="{element,index}">
             <div class="view-item" :class="{'view-item-active': element.itemId === currentCom.itemId}" @click="changeActive(index)">
+              <div class="active-action">
+                <a-tag color="#165dff">{{ element.label }}</a-tag>
+                <div class="action-btn">
+                  <icon-copy size="16" style="cursor: pointer;" @click.stop="copyCom(index)" />
+                  <a-popconfirm content="Are you sure you want to delete?" @ok="delCom(index)">
+                    <icon-delete size="16" style="cursor: pointer;" />
+                  </a-popconfirm>
+                </div>
+              </div>
               <component :is="list[element.type]" class="view-item-com" :comData="element" />
             </div>
           </template>
@@ -52,7 +61,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive, defineAsyncComponent, provide } from 'vue'
+import { ref, Ref, reactive, defineAsyncComponent, provide, nextTick } from 'vue'
 import componentData from './config'
 import { nanoid } from 'nanoid'
 import { comDefine, menuItem, comCollections } from './types'
@@ -81,7 +90,7 @@ import vuedraggable from 'vuedraggable'
   // 定义当前选中的一个组件
   let currentCom = ref({} as comDefine)
   provide('currentData', currentCom)
-  // 像表单定义中添加组件项
+  // 向表单定义中添加组件项
   const addCom = (item:comDefine):void => {
     let com = useDeepCopy(componentData.find(val => val.type === item.type))
     if (com) {
@@ -90,10 +99,27 @@ import vuedraggable from 'vuedraggable'
       currentCom.value = defineJson[defineJson.length - 1]
     }
   }
+  // 复制组件
+  const copyCom = (i:number):void => {
+    let com = useDeepCopy(defineJson[i])
+    com.itemId = `${com.type}_${nanoid(8)}`
+    defineJson.splice(i+1, 0, com)
+    currentCom.value = defineJson[i+1]
+  }
+  // 删除组件
+  const delCom = (i:number):void => {
+    defineJson.splice(i, 1)
+    if (defineJson.length) {
+      currentCom.value = defineJson[i - 1]
+    } else {
+      currentCom.value = {} as comDefine
+    }
+  }
 
   // 点击中部组件，切换当前选中组件状态
   const changeActive = (i:number):void => {
     currentCom.value = defineJson[i]
+    console.log(8888, currentCom.value )
   }
 
   // 组件从左侧拖入中间
@@ -111,7 +137,7 @@ import vuedraggable from 'vuedraggable'
 
   // 设置不允许停靠
   const onMove = (e:any) => {
-    if (!e.relatedContext.element.itemId) return false
+    if (e.relatedContext.element && !e.relatedContext.element.itemId) return false
     return true
   }
 
@@ -231,13 +257,38 @@ import vuedraggable from 'vuedraggable'
           width: 100%;
           height: fit-content;
           border: 2px dotted transparent;
+          margin-top: 24px;
           &:hover {
             border: 2px dashed #1890ff;
             background-color: rgba(24, 144, 255, .1);
           }
+          .active-action {
+            display: none;
+          }
         }
         .view-item-active {
-          border: 2px solid #1890ff!important;
+          border: 2px solid #165dff!important;
+          position: relative;
+          .active-action {
+            width: calc(100% + 4px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            right: -2px;
+            top: -26px;
+
+            .action-btn {
+              display: flex;
+              align-items: center;
+              background-color: #165dff;
+              justify-content: space-between;
+              color: #fff;
+              height: 24px;
+              width: 50px;
+              padding: 6px;
+            }
+          }
         }
         .view-item-com {
           pointer-events: none;

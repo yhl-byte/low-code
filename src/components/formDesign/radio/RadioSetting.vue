@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:16
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-17 19:06:27
+ * @LastEditTime: 2022-10-18 14:08:02
  * @FilePath: /low-code/src/components/formDesign/radio/RadioSetting.vue
 -->
 <template>
@@ -82,12 +82,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, inject, ref, Ref } from 'vue'
+import { inject, ref, Ref } from 'vue'
 import { comDefine, option } from '../types'
 import { nanoid } from 'nanoid'
 
 const form = inject<Ref>('currentData') || ref({} as comDefine)
-console.log(form.value)
+
 // 删除自定义选项
 const delData = (i:number):void => {
   if (form.value.diyList) {

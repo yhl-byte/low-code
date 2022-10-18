@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-17 18:40:14
+ * @LastEditTime: 2022-10-18 11:08:48
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -22,19 +22,25 @@
           </li>
         </ul>
         <ul class="nav-content">
-          <li v-for="item in componentData" :key="item.type" @click="addCom(item)">
-            <component :is="item.icon" size="16" />
-            <div style="padding-left: 10px;">{{item.label}}</div>
-          </li>
+          <vuedraggable v-model="componentData" :group="{name: 'comList',pull:'clone',put:false}" item-key="item.type" class="nav-content-drag">
+            <template #item="{element}">
+              <li @click="addCom(element)">
+                <component :is="element.icon" size="16" />
+                <div style="padding-left: 10px;">{{element.label}}</div>
+              </li>
+            </template>
+          </vuedraggable>
         </ul>
       </aside>
       <section class="preview">
         <a-form :model="form" class="preview-pc" layout="vertical">
-          <template v-for="(item, i) in defineJson" :key="item.itemId">
-            <div class="view-item" :class="{'view-item-active': item.itemId === currentCom.itemId}" @click="changeActive(i)">
-              <component :is="list[item.type]" class="view-item-com" :comData="item" />
+          <vuedraggable v-model="defineJson" :group="{name: 'comList', sort: true}" item-key="item.itemId" class="mid-content-drag" @update="update" @add="leftToMid" ghostClass="ghost">
+          <template #item="{element,index}">
+            <div class="view-item" :class="{'view-item-active': element.itemId === currentCom.itemId}" @click="changeActive(index)">
+              <component :is="list[element.type]" class="view-item-com" :comData="element" />
             </div>
           </template>
+          </vuedraggable>
         </a-form>
       </section>
       <aside class="right-area">
@@ -51,6 +57,7 @@ import componentData from './config'
 import { nanoid } from 'nanoid'
 import { comDefine, menuItem, comCollections } from './types'
 import useDeepCopy from '../../hooks/deep-clone'
+import vuedraggable from 'vuedraggable'
 
   // 菜单列表
   const menuList:Array<menuItem> = [
@@ -78,7 +85,7 @@ import useDeepCopy from '../../hooks/deep-clone'
   const addCom = (item:comDefine):void => {
     let com = useDeepCopy(componentData.find(val => val.type === item.type))
     if (com) {
-      com.itemId = nanoid(8)
+      com.itemId = `${com.type}_${nanoid(8)}`
       defineJson.push(com)
       currentCom.value = defineJson[defineJson.length - 1]
     }
@@ -87,6 +94,19 @@ import useDeepCopy from '../../hooks/deep-clone'
   // 点击中部组件，切换当前选中组件状态
   const changeActive = (i:number):void => {
     currentCom.value = defineJson[i]
+  }
+
+  // 组件从左侧拖入中间
+  const leftToMid = (e:any):void => {
+    let com = useDeepCopy(componentData[e.oldIndex])
+    com.itemId = `${com.type}_${nanoid(8)}`
+    defineJson.splice(e.newIndex, 0, com)
+    currentCom.value = defineJson[e.newIndex]
+  }
+  // 中间组件流拖拽后,重新排序
+  const update = (e:any):void => {
+    defineJson.splice(e.newIndex, 0, ...defineJson.splice(e.oldIndex, 1))
+    currentCom.value = defineJson[e.newIndex]
   }
 
   // 动态获取异步组件集合
@@ -144,10 +164,14 @@ import useDeepCopy from '../../hooks/deep-clone'
         .nav-content {
           flex: 1;
           padding: 12px;
+        }
+        .nav-content-drag {
+          width: 100%;
+          height: 100%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           grid-template-rows: repeat(2, 40px);
-
+          overflow: auto;
           li {
             display: flex;
             justify-content: flex-start;
@@ -173,6 +197,22 @@ import useDeepCopy from '../../hooks/deep-clone'
         flex: 1;
         background: #edeff3;
         padding: 16px;
+        .mid-content-drag {
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+        }
+        .ghost {
+          list-style: none;
+          width: 100%;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(24, 144, 255, .3);
+          border: 1px solid #1890ff;
+          opacity: .3;
+        }
 
         .preview-pc {
           background: #fff;

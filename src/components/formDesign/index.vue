@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:49:06
+ * @LastEditTime: 2022-10-19 13:58:42
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -46,7 +46,7 @@
                   </a-popconfirm>
                 </div>
               </div>
-              <component :is="list[element.type]" class="view-item-com" :comData="element" />
+              <component :is="formDesignCom[element.type]" class="view-item-com" :comData="element" />
             </div>
           </template>
           </vuedraggable>
@@ -54,17 +54,17 @@
       </section>
       <aside class="right-area">
         <template v-if="currentCom.type">
-          <component :is="list[currentCom.type + 'Setting']"  />
+          <component :is="formDesignCom[currentCom.type + 'Setting']"  />
         </template>
       </aside>
     </main>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive, defineAsyncComponent, provide, InjectionKey } from 'vue'
-import componentData from './config'
+import { ref, Ref, reactive, provide } from 'vue'
+import { componentData, formDesignCom } from './config'
 import { nanoid } from 'nanoid'
-import { comDefine, menuItem, comCollections } from './types'
+import { comDefine, menuItem } from './types'
 import useDeepCopy from '../../hooks/deep-clone'
 import vuedraggable from 'vuedraggable'
 
@@ -143,16 +143,6 @@ import vuedraggable from 'vuedraggable'
   const onMove = (e:any) => {
     if (e.relatedContext.element && !e.relatedContext.element.itemId) return false
     return true
-  }
-
-  // 动态获取异步组件集合
-  const modules = import.meta.glob('./*/*.vue', { eager: true })
-  let list:comCollections = {}
-  for (const path in modules) {
-    const key:string = path.replace(/(.*\/)*([^.]+).vue/ig, "$2")
-    list[key] = defineAsyncComponent(() => 
-      import(path)
-    )
   }
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 16:11:54
+ * @LastEditTime: 2022-10-19 13:49:06
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -61,7 +61,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive, defineAsyncComponent, provide, nextTick } from 'vue'
+import { ref, Ref, reactive, defineAsyncComponent, provide, InjectionKey } from 'vue'
 import componentData from './config'
 import { nanoid } from 'nanoid'
 import { comDefine, menuItem, comCollections } from './types'
@@ -89,12 +89,17 @@ import vuedraggable from 'vuedraggable'
   let defineJson = reactive([] as comDefine[])
   // 定义当前选中的一个组件
   let currentCom = ref({} as comDefine)
+  // 传递给下方组件当前组件值
   provide('currentData', currentCom)
   // 向表单定义中添加组件项
   const addCom = (item:comDefine):void => {
     let com = useDeepCopy(componentData.find(val => val.type === item.type))
-    if (com) {
-      com.itemId = `${com.type}_${nanoid(8)}`
+    let index = defineJson.findIndex(res => res.itemId === currentCom.value.itemId)
+    com.itemId = `${com.type}_${nanoid(8)}`
+    if (index >= 0) {
+      defineJson.splice(index + 1, 0, com)
+      currentCom.value = defineJson[index + 1]
+    } else {
       defineJson.push(com)
       currentCom.value = defineJson[defineJson.length - 1]
     }

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-09 17:34:34
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-10 15:44:33
+ * @LastEditTime: 2022-10-19 13:30:24
  * @FilePath: /low-code/src/components/formDesign/text/text.ts
  */
 
@@ -35,7 +35,7 @@ class Text {
     this.placeholder = '请输入'
     this.clearable = false
     this.filterable = false
-    this.defaultValue = null
+    this.defaultValue = ''
     this.isRequired = false
     this.showlimit = false
     this.maxLength = 100

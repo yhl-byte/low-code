@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:09:02
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-16 14:23:54
+ * @LastEditTime: 2022-10-19 13:30:10
  * @FilePath: /low-code/src/components/formDesign/textarea/Textarea.ts
  */
 class Textarea {
@@ -32,7 +32,7 @@ class Textarea {
     this.desc = ''
     this.state = 'N'
     this.placeholder = '请输入'
-    this.defaultValue = null
+    this.defaultValue = ''
     this.isRequired = false
     this.showlimit = false
     this.maxLength = 100

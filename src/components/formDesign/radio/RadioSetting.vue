@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:16
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-18 14:08:02
+ * @LastEditTime: 2022-10-19 11:09:59
  * @FilePath: /low-code/src/components/formDesign/radio/RadioSetting.vue
 -->
 <template>
@@ -45,7 +45,7 @@
             </div>
             <template #actions>
               <a-popover position="left" trigger="click">
-                <icon-edit @click="editData(item, i)" />
+                <icon-edit />
                 <template #content>
                   <ul class="editStyle">
                     <li>
@@ -57,7 +57,7 @@
                       <a-input v-model="item.value" placeholder="请输入" allow-clear />
                     </li>
                     <li>
-                      <a-switch />
+                      <a-switch :default-checked="form.defaultValue === item.value" @change="(val) => changeDefault(val, i)" />
                     </li>
                   </ul>
                 </template>
@@ -75,9 +75,6 @@
     <a-form-item field="isRead" label="必填" class="rightCom">
       <a-checkbox />
     </a-form-item>
-    <a-form-item field="isRead" label="自定义正则" class="rightCom">
-      <a-checkbox />
-    </a-form-item>
   </a-form>
 </template>
 
@@ -86,11 +83,18 @@ import { inject, ref, Ref } from 'vue'
 import { comDefine, option } from '../types'
 import { nanoid } from 'nanoid'
 
-const form = inject<Ref>('currentData') || ref({} as comDefine)
+const form = inject<Ref<comDefine>>('currentData', ref({} as comDefine))
 
 // 删除自定义选项
 const delData = (i:number):void => {
   if (form.value.diyList) {
+    // 若删除的选项为默认值，将默认值清空
+    if (form.value.defaultValue === form.value.diyList[i].value) {
+      form.value.defaultValue = ''
+      form.value.diyList.forEach((element:option) => {
+        element.isDefault = false
+      })
+    }
     form.value.diyList.splice(i, 1)
   }
 }
@@ -104,10 +108,16 @@ const addData = ():void => {
     })
   }
 }
-// 编辑自定义选项
-const editData = (item:option, i:number):void => {
+
+// 通过开关切换默认值
+const changeDefault = (value: any, i:number):void => {
   if (form.value.diyList) {
-    
+    if (value) {
+      form.value.defaultValue = form.value.diyList[i].value
+    } else {
+      form.value.defaultValue = ''
+      form.value.diyList.splice(i, 1, Object.assign(form.value.diyList[i], {isDefault: false}))
+    }
   }
 }
 

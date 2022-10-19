@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 15:16:26
+ * @LastEditTime: 2022-10-19 17:25:49
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{
@@ -18,7 +18,7 @@ export interface comDefine{
   placeholder?: string; // 输入提示信息
   clearable?: boolean; // 是否可清空
   filterable?: boolean; // 是否可搜索
-  defaultValue?: string; // 默认值
+  defaultValue?: any; // 默认值
   isRequired?: boolean; // 是否必填
   showlimit?: boolean; // 是否显示字数统计
   maxLength?: number; // 最大输入长度
@@ -26,6 +26,11 @@ export interface comDefine{
   maxRows?: number; // 文本域最大高度
   direction?: "horizontal" | "vertical" | undefined; // 单选框组的方向
   diyList?: Array<option>; //单选框自定义选项
+  step?: number; // 数字变化步长
+  hideButton?: boolean; // 是否隐藏按钮
+  precision?: number; // 数字精度
+  thousandSeparator?: boolean; // 是否千分位分隔
+  max: number | undefined; // 支持最多选中的数量
 }
 
 export interface menuItem {

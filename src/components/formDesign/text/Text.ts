@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-09 17:34:34
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:30:24
+ * @LastEditTime: 2022-10-19 17:49:45
  * @FilePath: /low-code/src/components/formDesign/text/text.ts
  */
 
@@ -10,6 +10,8 @@ class Text {
   type: string; // 组件类型
   icon: string; // 组件展示ICON
   label: string; // 组件名称
+  sort: number; // 组件排序
+  group: string; // 组件分组
   /** 组件的可配置属性 */
   title: string; // 组件在表单中的标题
   itemId: string; // 该组件的唯一ID，在添加之后生成
@@ -27,6 +29,8 @@ class Text {
     this.type = 'Text'
     this.icon = 'icon-robot'
     this.label = '单行文本'
+    this.sort = 1
+    this.group = 'base'
     this.title = '单行文本'
     this.itemId = ''
     this.alias = ''

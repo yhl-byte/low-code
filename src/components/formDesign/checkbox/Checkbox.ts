@@ -1,13 +1,12 @@
 /*
  * @Author: yhl
- * @Date: 2022-10-10 14:39:52
+ * @Date: 2022-10-19 17:20:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 17:50:49
- * @FilePath: /low-code/src/components/formDesign/radio/Radio.ts
+ * @LastEditTime: 2022-10-19 17:51:04
+ * @FilePath: /low-code/src/components/formDesign/checkbox/Checkbox.ts
  */
-
 import { option } from '../types'
-class Radio {
+class Checkbox {
   type: string; // 组件类型
   icon: string; // 组件展示ICON
   label: string; // 组件名称
@@ -19,24 +18,26 @@ class Radio {
   alias: string; // 组件的别名，用于第三方调用获取对应组件信息
   desc: string; // 组件描述，显示在组件下方
   state: string; // 组件状态（N - 常规； R - 只读； H - 隐藏； F - 禁用）
-  defaultValue: string|number; // 默认值
+  defaultValue: any; // 默认值
   isRequired: boolean; // 是否必填
   direction: string; // 单选框组的方向
-  diyList: Array<option>;
+  max: number | undefined; // 支持最多选中的数量
+  diyList:  Array<option>;
   constructor () {
-    this.type = 'Radio'
+    this.type = 'Checkbox'
     this.icon = 'icon-robot'
-    this.label = '单选'
+    this.label = '复选'
     this.sort = 1
     this.group = 'base'
-    this.title = '单选'
+    this.title = '复选'
     this.itemId = ''
     this.alias = ''
     this.desc = ''
     this.state = 'N'
-    this.defaultValue = ''
+    this.defaultValue = []
     this.isRequired = false
     this.direction = 'horizontal'
+    this.max = undefined
     this.diyList = [{
       value: '1',
       label: '选项一',
@@ -53,4 +54,6 @@ class Radio {
   }
 }
 
-export default Radio
+
+
+export default Checkbox

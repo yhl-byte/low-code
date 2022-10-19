@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:01
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 11:22:22
+ * @LastEditTime: 2022-10-19 15:26:37
  * @FilePath: /low-code/src/components/formDesign/radio/Radio.vue
 -->
 <template>
@@ -22,13 +22,14 @@
 import { computed } from 'vue'
 import { comDefine } from '../types'
 interface Props {
-  comData: comDefine
+  comData: comDefine,
+  isDesign?: boolean
 }
+const { comData, isDesign = false } = defineProps<Props>()
 
-const { comData } = defineProps<Props>()
 // 判断是否隐藏状态
-const isHidden = computed(() => (comData.state !== 'H'&&!isDesign) || isDesign)
-const isDesign = true
+const isHidden = computed(() => !(comData.state === 'H' && !isDesign))
+
 </script>
 <style lang="less" scoped>
 .hidden {

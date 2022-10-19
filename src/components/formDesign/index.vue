@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:58:42
+ * @LastEditTime: 2022-10-19 15:11:55
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -46,7 +46,7 @@
                   </a-popconfirm>
                 </div>
               </div>
-              <component :is="formDesignCom[element.type]" class="view-item-com" :comData="element" />
+              <component :is="formDesignCom[element.type]" class="view-item-com" isDesign :comData="element" />
             </div>
           </template>
           </vuedraggable>

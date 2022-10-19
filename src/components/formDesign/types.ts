@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 10:59:34
+ * @LastEditTime: 2022-10-19 15:16:26
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{

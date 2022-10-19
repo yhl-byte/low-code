@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:08:31
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:34:41
+ * @LastEditTime: 2022-10-19 15:26:11
  * @FilePath: /low-code/src/components/formDesign/textarea/Textarea.vue
 -->
 <template>
@@ -20,15 +20,14 @@
 import { computed } from 'vue'
 import { comDefine } from '../types'
 interface Props {
-  comData: comDefine
+  comData: comDefine,
+  isDesign?: boolean
 }
-
-const { comData } = defineProps<Props>()
+const { comData, isDesign = false } = defineProps<Props>()
 
 // 判断是否隐藏状态
-const isHidden = computed(() => (comData.state !== 'H'&&!isDesign) || isDesign)
+const isHidden = computed(() => !(comData.state === 'H' && !isDesign))
 
-const isDesign = true
 </script>
 <style lang="less" scoped>
 .hidden {

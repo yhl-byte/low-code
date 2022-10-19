@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 10:13:39
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:59:45
+ * @LastEditTime: 2022-10-19 14:19:38
  * @FilePath: /low-code/src/components/formDesign/config.ts
  */
 import { defineAsyncComponent } from 'vue'
@@ -25,6 +25,6 @@ export let formDesignCom:comCollections = {}
 for (const path in modules_vue) {
   const key:string = path.replace(/(.*\/)*([^.]+).vue/ig, "$2")
   formDesignCom[key] = defineAsyncComponent(() => 
-    import(path)
+    import(/* @vite-ignore */path)
   )
 }

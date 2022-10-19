@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:08:51
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 13:26:05
+ * @LastEditTime: 2022-10-19 14:13:33
  * @FilePath: /low-code/src/components/formDesign/textarea/TextareaSetting.vue
 -->
 <template>
@@ -67,29 +67,5 @@ const form = inject<Ref<comDefine>>('currentData', ref({} as comDefine))
 
 </script>
 <style lang="less" scoped>
-.gapStyle {
-  width: 100%;
-  height: 32px;
-  background: #f5f6f7;
-  line-height: 32px;
-  padding: 0 16px;
-  margin-bottom: 12px;
-}
-/deep/.arco-form-item {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-.stateStyle {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  /deep/.arco-radio-button-content{
-    padding: 0 8px!important;
-  }
-}
-.rightCom {
-  /deep/.arco-form-item-content-flex{
-    justify-content: flex-end;
-  }
-}
+@import "../../../style/FormDesign.less";
 </style>

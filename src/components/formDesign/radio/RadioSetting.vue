@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:40:16
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 11:09:59
+ * @LastEditTime: 2022-10-19 14:14:12
  * @FilePath: /low-code/src/components/formDesign/radio/RadioSetting.vue
 -->
 <template>
@@ -124,41 +124,5 @@ const changeDefault = (value: any, i:number):void => {
 </script>
 
 <style lang="less" scoped>
-.gapStyle {
-  width: 100%;
-  height: 32px;
-  background: #f5f6f7;
-  line-height: 32px;
-  padding: 0 16px;
-  margin-bottom: 12px;
-}
-/deep/.arco-form-item {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-.stateStyle {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  /deep/.arco-radio-button-content{
-    padding: 0 8px!important;
-  }
-}
-.editStyle {
-  width: 300px;
-  li {
-    display: flex;
-    margin-bottom: 8px;
-    align-items: center;
-
-    .title {
-      width: 80px;
-    }
-  }
-}
-.rightCom {
-  /deep/.arco-form-item-content-flex{
-    justify-content: flex-end;
-  }
-}
+@import "../../../style/FormDesign.less";
 </style>

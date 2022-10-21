@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-21 10:39:37
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:39:35
+ * @LastEditTime: 2022-10-21 17:48:15
  * @FilePath: /low-code/src/components/formDesign/dateRange/DateRange.vue
 -->
 <template>
@@ -52,7 +52,7 @@ const disabledDate = () => {
   return reslut
 }
 
-const format = () => comData.pickMode.indexOf('YYYY') > -1 ? comData.pickMode : undefined
+const format = comData.pickMode.indexOf('YYYY') > -1 ? comData.pickMode : undefined
 
 </script>
 <style lang="less" scoped>

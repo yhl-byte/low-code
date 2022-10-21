@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:39:52
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 17:50:49
+ * @LastEditTime: 2022-10-21 17:46:02
  * @FilePath: /low-code/src/components/formDesign/radio/Radio.ts
  */
 
@@ -27,7 +27,7 @@ class Radio {
     this.type = 'Radio'
     this.icon = 'icon-robot'
     this.label = '单选'
-    this.sort = 1
+    this.sort = 4
     this.group = 'base'
     this.title = '单选'
     this.itemId = ''

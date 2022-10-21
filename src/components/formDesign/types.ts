@@ -2,13 +2,15 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:20:29
+ * @LastEditTime: 2022-10-21 17:45:16
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{
   type: string; // 组件类型
   icon: string; // 组件展示ICON
   label: string; // 组件名称
+  sort: number; // 组件排序
+  group: string; // 组件分组
   /** 组件的可配置属性 */
   title: string; // 组件在表单中的标题
   itemId: string; // 该组件的唯一ID，在添加之后生成

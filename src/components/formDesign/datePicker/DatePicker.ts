@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-21 14:57:40
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:20:17
+ * @LastEditTime: 2022-10-21 17:46:29
  * @FilePath: /low-code/src/components/formDesign/datePicker/DatePicker.ts
  */
 class DatePicker {
@@ -28,7 +28,7 @@ class DatePicker {
     this.type = 'DatePicker'
     this.icon = 'icon-robot'
     this.label = '日期'
-    this.sort = 1
+    this.sort = 8
     this.group = 'base'
     this.title = '日期'
     this.itemId = ''

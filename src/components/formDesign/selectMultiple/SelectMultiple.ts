@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:39:52
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 11:04:38
+ * @LastEditTime: 2022-10-21 17:46:20
  * @FilePath: /low-code/src/components/formDesign/selectMultiple/SelectMultiple.ts
  */
 
@@ -29,7 +29,7 @@ class SelectMultiple {
     this.type = 'SelectMultiple'
     this.icon = 'icon-robot'
     this.label = '下拉多选'
-    this.sort = 1
+    this.sort = 7
     this.group = 'base'
     this.title = '下拉多选'
     this.itemId = ''

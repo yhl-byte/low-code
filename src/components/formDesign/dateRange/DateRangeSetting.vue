@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-21 14:57:40
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:42:00
+ * @LastEditTime: 2022-10-21 17:49:27
  * @FilePath: /low-code/src/components/formDesign/dateRange/DateRangeSetting.vue
 -->
 <template>
@@ -93,7 +93,7 @@ const formatList:Array<comCollections> = [
 ]
 
 watch(() => form.value.pickMode, (newX) =>{
-  if (newX.indexOf('YYYY') > -1) {
+  if (newX && newX.indexOf('YYYY') > -1) {
     form.value.rangeMode = 'date'
   } else {
     let obj:comCollections | undefined = formatList.find(item => item.value === newX)
@@ -140,7 +140,7 @@ const disabledDate = () => {
   return reslut
 }
 
-const format = () => form.value.pickMode.indexOf('YYYY') > -1 ? form.value.pickMode : undefined
+const format = form.value.pickMode.indexOf('YYYY') > -1 ? form.value.pickMode : undefined
 </script>
 
 <style lang="less" scoped>

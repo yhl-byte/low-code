@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 14:09:02
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 17:50:13
+ * @LastEditTime: 2022-10-21 17:45:48
  * @FilePath: /low-code/src/components/formDesign/textarea/Textarea.ts
  */
 class Textarea {
@@ -28,7 +28,7 @@ class Textarea {
     this.type = 'Textarea'
     this.icon = 'icon-robot-add'
     this.label = '多行文本'
-    this.sort = 1
+    this.sort = 2
     this.group = 'base'
     this.title = '多行文本'
     this.itemId = ''

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-19 15:41:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 17:50:29
+ * @LastEditTime: 2022-10-21 17:45:55
  * @FilePath: /low-code/src/components/formDesign/number/Number.ts
  */
 class Number {
@@ -29,7 +29,7 @@ class Number {
     this.type = 'Number'
     this.icon = 'icon-robot'
     this.label = '数值'
-    this.sort = 1
+    this.sort = 3
     this.group = 'base'
     this.title = '数值'
     this.itemId = ''

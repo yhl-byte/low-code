@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-19 17:20:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 17:51:04
+ * @LastEditTime: 2022-10-21 17:46:07
  * @FilePath: /low-code/src/components/formDesign/checkbox/Checkbox.ts
  */
 import { option } from '../types'
@@ -27,7 +27,7 @@ class Checkbox {
     this.type = 'Checkbox'
     this.icon = 'icon-robot'
     this.label = '复选'
-    this.sort = 1
+    this.sort = 5
     this.group = 'base'
     this.title = '复选'
     this.itemId = ''

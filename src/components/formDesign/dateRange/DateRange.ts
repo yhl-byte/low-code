@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-21 14:57:40
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:19:36
+ * @LastEditTime: 2022-10-21 17:46:34
  * @FilePath: /low-code/src/components/formDesign/dateRange/DateRange.ts
  */
 class DateRange {
@@ -28,7 +28,7 @@ class DateRange {
     this.type = 'DateRange'
     this.icon = 'icon-robot'
     this.label = '日期区间'
-    this.sort = 1
+    this.sort = 9
     this.group = 'base'
     this.title = '日期区间'
     this.itemId = ''

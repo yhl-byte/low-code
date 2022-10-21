@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-09-30 18:14:47
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-19 15:11:55
+ * @LastEditTime: 2022-10-21 11:04:09
  * @FilePath: /low-code/src/components/formDesign/index.vue
 -->
 <template>
@@ -196,7 +196,7 @@ import vuedraggable from 'vuedraggable'
           height: 100%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: repeat(2, 40px);
+          grid-template-rows: repeat(100, 40px);
           overflow: auto;
           li {
             display: flex;

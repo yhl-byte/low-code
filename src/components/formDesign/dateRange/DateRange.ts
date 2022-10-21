@@ -2,10 +2,10 @@
  * @Author: yhl
  * @Date: 2022-10-21 14:57:40
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:20:17
- * @FilePath: /low-code/src/components/formDesign/datePicker/DatePicker.ts
+ * @LastEditTime: 2022-10-21 17:19:36
+ * @FilePath: /low-code/src/components/formDesign/dateRange/DateRange.ts
  */
-class DatePicker {
+class DateRange {
   type: string; // 组件类型
   icon: string; // 组件展示ICON
   label: string; // 组件名称
@@ -19,30 +19,30 @@ class DatePicker {
   state: string; // 组件状态（N - 常规； R - 只读； H - 隐藏； F - 禁用）
   defaultValue: any; // 默认值
   isRequired: boolean; // 是否必填
-  placeholder: string; // 输入提示信息
   clearable: boolean; // 是否可清空
-  pickMode: "year" | "month" | "date" | "week" | "quarter" | 'YYYY-MM-DD hh:mm' | 'YYYY-MM-DD HH:mm:ss'; // 日期选择格式
+  rangeMode: "year" | "month" | "date" | "week" | "quarter" | undefined; // 日期区间选择格式 
   pickLimit: string; // 日期选择限制条件
   disableRang: Array<any>; // 日期选择禁选区间
+  pickMode: "year" | "month" | "date" | "week" | "quarter" | 'YYYY-MM-DD hh:mm' | 'YYYY-MM-DD HH:mm:ss'; 
   constructor () {
-    this.type = 'DatePicker'
+    this.type = 'DateRange'
     this.icon = 'icon-robot'
-    this.label = '日期'
+    this.label = '日期区间'
     this.sort = 1
     this.group = 'base'
-    this.title = '日期'
+    this.title = '日期区间'
     this.itemId = ''
     this.alias = ''
     this.desc = ''
     this.state = 'N'
     this.defaultValue = undefined
     this.isRequired = false
-    this.placeholder = '请选择'
     this.clearable = false
+    this.rangeMode = 'date'
     this.pickMode = 'date'
     this.pickLimit = 'none'
     this.disableRang = []
   }
 }
 
-export default DatePicker
+export default DateRange

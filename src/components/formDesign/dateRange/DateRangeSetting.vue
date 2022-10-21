@@ -2,8 +2,8 @@
  * @Author: yhl
  * @Date: 2022-10-21 14:57:40
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:26:38
- * @FilePath: /low-code/src/components/formDesign/datePicker/DatePickerSetting.vue
+ * @LastEditTime: 2022-10-21 17:42:00
+ * @FilePath: /low-code/src/components/formDesign/dateRange/DateRangeSetting.vue
 -->
 <template>
   <a-form :model="form" label-align="left" auto-label-width>
@@ -13,9 +13,6 @@
     </a-form-item>
     <a-form-item field="post" label="别名">
       <a-input v-model="form.alias" placeholder="请输入" allow-clear />
-    </a-form-item>
-    <a-form-item field="post" label="占位提示">
-      <a-input v-model="form.placeholder" placeholder="请输入" allow-clear />
     </a-form-item>
     <a-form-item field="post" label="描述信息">
       <a-input v-model="form.desc" placeholder="请输入" allow-clear />
@@ -29,12 +26,7 @@
       </a-radio-group>
     </a-form-item>
     <a-form-item field="name" label="默认值">
-      <a-date-picker v-if="whichMode('YYYY')" v-model="form.defaultValue" placeholder="请选择" :format="form.pickMode" allow-clear />
-      <a-date-picker v-if="whichMode('date')" v-model="form.defaultValue" placeholder="请选择"  allow-clear />
-      <a-month-picker v-if="whichMode('month')" v-model="form.defaultValue" placeholder="请选择"  allow-clear />
-      <a-year-picker v-if="whichMode('year')" v-model="form.defaultValue" placeholder="请选择"  allow-clear />
-      <a-quarter-picker v-if="whichMode('quarter')" v-model="form.defaultValue" placeholder="请选择"  allow-clear />
-      <a-week-picker v-if="whichMode('week')" v-model="form.defaultValue" placeholder="请选择"  allow-clear />
+      <a-range-picker v-model="form.defaultValue" :mode="form.rangeMode" allow-clear :show-time="form.pickMode.indexOf('YYYY') > -1" :format="format" :disabledDate="disabledDate()" />
     </a-form-item>
     <a-form-item field="post" label="格式">
       <a-select v-model="form.pickMode">
@@ -60,8 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, Ref } from 'vue'
+import { inject, ref, Ref, watch } from 'vue'
 import { comDefine, comCollections } from '../types'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+dayjs.extend(isBetween)
 
 const form = inject<Ref<comDefine>>('currentData', ref({} as comDefine))
 
@@ -97,6 +92,15 @@ const formatList:Array<comCollections> = [
   }
 ]
 
+watch(() => form.value.pickMode, (newX) =>{
+  if (newX.indexOf('YYYY') > -1) {
+    form.value.rangeMode = 'date'
+  } else {
+    let obj:comCollections | undefined = formatList.find(item => item.value === newX)
+    if (obj) form.value.rangeMode = obj.value
+  }
+})
+
 // 可选限制选项
 const limitList:Array<comCollections> = [
   {
@@ -117,9 +121,26 @@ const limitList:Array<comCollections> = [
   }
 ]
 
-// 判断当前展示哪个组件
-const whichMode = (mode:string):boolean => form.value.pickMode.indexOf(mode) > -1
+// 限制时间方案
+const disabledDate = () => {
+  let reslut = undefined
+  switch (form.value.pickLimit) {
+    case 'afterToday': 
+      reslut = (current:any) => dayjs(current).isAfter(dayjs())
+      break
+    case 'beforeToday':
+      reslut = (current:any) => dayjs(current).isBefore(dayjs())
+      break
+    case 'rang':
+      reslut = (current:any) => dayjs(current).isBetween(dayjs(form.value.disableRang[0]), dayjs(form.value.disableRang[1]))
+      break
+    default :
+      reslut = undefined
+  }
+  return reslut
+}
 
+const format = () => form.value.pickMode.indexOf('YYYY') > -1 ? form.value.pickMode : undefined
 </script>
 
 <style lang="less" scoped>

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 16:22:02
+ * @LastEditTime: 2022-10-21 17:20:29
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{
@@ -31,9 +31,10 @@ export interface comDefine{
   precision: number; // 数字精度
   thousandSeparator?: boolean; // 是否千分位分隔
   max: number | undefined; // 支持最多选中的数量
-  pickMode: string; // 日期选择格式 'date' | 'year' | 'month' | 'time:hm' | 'time:hms'
+  pickMode: "year" | "month" | "date" | "week" | "quarter" | 'YYYY-MM-DD hh:mm' | 'YYYY-MM-DD HH:mm:ss'; // 日期选择格式
   pickLimit: string; // 日期选择限制条件
   disableRang: Array<any>; // 日期选择禁选区间
+  rangeMode: "year" | "month" | "date" | "week" | "quarter"; // 日期区间选择格式 
 }
 
 export interface menuItem {

@@ -2,7 +2,7 @@
  * @Author: yhl
  * @Date: 2022-10-10 11:33:10
  * @LastEditors: Do not edit
- * @LastEditTime: 2022-10-21 17:45:16
+ * @LastEditTime: 2022-10-21 20:52:08
  * @FilePath: /low-code/src/components/formDesign/types.ts
  */
 export interface comDefine{
@@ -37,6 +37,11 @@ export interface comDefine{
   pickLimit: string; // 日期选择限制条件
   disableRang: Array<any>; // 日期选择禁选区间
   rangeMode: "year" | "month" | "date" | "week" | "quarter"; // 日期区间选择格式 
+  uploadType: string; // 上传类型
+  multiple: boolean; // 是否支持上传多选
+  limit: number; // 文件最大上传数量
+  maxSize: number; // 单文件最大上传大小(MB)
+  fileTypes: string; // 上传文件类型
 }
 
 export interface menuItem {
